@@ -15,7 +15,8 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+//@Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 

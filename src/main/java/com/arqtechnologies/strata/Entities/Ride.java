@@ -1,5 +1,6 @@
 package com.arqtechnologies.strata.Entities;
 
+import com.arqtechnologies.strata.Enums.EnumPaymentMethod;
 import com.arqtechnologies.strata.Enums.EnumStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,5 +35,6 @@ public class Ride {
     LocalDateTime startTime;
     @Column
     LocalDateTime endTime;
-
+    @Column
+    EnumPaymentMethod paymentMethod;
 }
