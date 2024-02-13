@@ -38,6 +38,18 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public PassengerResponseDTO updatePassenger(PassengerRequestDTO passengerRequestDTO) {
+
+        Passenger passenger = passengerRepository.findById(passengerRequestDTO.getPassengerId())
+                .orElseThrow(()-> new RuntimeException("Couldn't find passenger with ID " +
+                        passengerRequestDTO.getPassengerId()));
+
+        passenger.setFirstName(passengerRequestDTO.getFirstName());
+        passenger.setLastName(passengerRequestDTO.getLastName());
+        passenger.setPhoneNumber(passengerRequestDTO.getPhoneNumber());
+        passenger.setPhoneNumber2(passengerRequestDTO.getPhoneNumber2());
+
+        passengerRepository.save(passenger);
+
         return null;
     }
 }

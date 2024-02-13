@@ -47,4 +47,5 @@ public class User {
 
     //TODO USER IMAGE
 
+    //TODO DO EXCEPTION HANDLING FOR THE APPLICATION
 }

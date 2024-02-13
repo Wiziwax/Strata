@@ -9,6 +9,6 @@ public interface PassengerService {
 
     //TODO LOGIN
     PassengerResponseDTO updatePassenger(PassengerRequestDTO passengerRequestDTO);
-//    PassengerResponseDTO passwordReset
+    //PassengerResponseDTO passwordReset
     //TODO PASSWORD RESET
 }

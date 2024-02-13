@@ -13,7 +13,6 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-//@RequiredArgsConstructor
 public class Passenger extends User{
 
     @OneToOne

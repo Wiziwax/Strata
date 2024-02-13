@@ -8,12 +8,14 @@ import com.arqtechnologies.strata.Entities.Driver;
 import com.arqtechnologies.strata.Entities.Passenger;
 import com.arqtechnologies.strata.Entities.User;
 import com.arqtechnologies.strata.Enums.EnumRole;
+import com.arqtechnologies.strata.Repositories.DriverRepository;
 import com.arqtechnologies.strata.Repositories.UserRepository;
 import com.arqtechnologies.strata.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ObjectUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -27,45 +29,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Override
-//    public String createDriver(DriverRequestDTO driverRequestDTO) {
-//        Driver newDriver = new Driver();
-//
-//        newDriver.setFirstName(driverRequestDTO.getFirstName());
-//        newDriver.setLastName(driverRequestDTO.getLastName());
-//        newDriver.setEmail(driverRequestDTO.getEmail());
-//        newDriver.setPassword(driverRequestDTO.getPassword());
-//        newDriver.setPhoneNumber(driverRequestDTO.getPhoneNumber());
-//        newDriver.setPhoneNumber2(driverRequestDTO.getPhoneNumber2());
-//        newDriver.setLicenseNumber(driverRequestDTO.getLicenseNumber());
-//        newDriver.setCarModel(driverRequestDTO.getCarModel());
-//        newDriver.setCarColour(driverRequestDTO.getCarColour());
-//        newDriver.setCarPlateNumber(driverRequestDTO.getCarPlateNumber());
-//        newDriver.setCarCapacity(driverRequestDTO.getCarCapacity());
-////        newDriver.setCreatedBy();//TODO AUTHENTICATION
-//        newDriver.setCreatedDate(new Date());
-//        newDriver.setUserRole(DRIVER);
-//
-//        userRepository.save(newDriver);
-//        return "Successfully Created";
-//    }
-
-
-
-    @Override
-    public String createAdmin(UserRequestDTO userRequestDTO) {
-        User newUser = new User();
-        newUser.setFirstName(userRequestDTO.getFirstName());
-        newUser.setLastName(userRequestDTO.getLastName());
-        newUser.setEmail(userRequestDTO.getEmail());
-        newUser.setPassword(userRequestDTO.getPassword());
-        newUser.setPhoneNumber(userRequestDTO.getPhoneNumber());
-        newUser.setPhoneNumber2(userRequestDTO.getPhoneNumber2());
-        newUser.setCreatedDate(new Date());
-//        user.setCreatedBy();
-        newUser.setUserRole(ADMIN);
-        return "Successfully Created";
-    }
 
     @Override
     public String createUser(UserRequestDTO userRequestDTO) {
@@ -78,31 +41,13 @@ public class UserServiceImpl implements UserService {
        newUser.setPhoneNumber2(userRequestDTO.getPhoneNumber2());
        newUser.setCreatedDate(new Date());
 //       user.er.setCreatedBy();
+
+        //TODO IF USER IS DRIVER OR PASSENGER, CALL THEIR CORRESPONDING REPOSITORY
        newUser.setUserRole(userRequestDTO.getUserRole());
        userRepository.save(newUser);
         return "Successfully Created";
     }
 
-//    @Override
-//    public String createCustomerService(UserRequestDTO userRequestDTO) {
-//
-//        User newUser = new User();
-//        dataTransfer(userRequestDTO, newUser);
-//        return "Successfully Created";
-//    }
-
-    private void dataTransfer(UserRequestDTO userRequestDTO, User user) {
-        user.setFirstName(userRequestDTO.getFirstName());
-        user.setLastName(userRequestDTO.getLastName());
-        user.setEmail(userRequestDTO.getEmail());
-        user.setPassword(userRequestDTO.getPassword());
-        user.setPhoneNumber(userRequestDTO.getPhoneNumber());
-        user.setPhoneNumber2(userRequestDTO.getPhoneNumber2());
-        user.setCreatedDate(new Date());
-//        user.setCreatedBy();
-        user.setUserRole(userRequestDTO.getUserRole());
-
-    }
 
     @Override
     public Page<UserResponseDTO> getAllUser(Integer roleId, Pageable pageable) {
