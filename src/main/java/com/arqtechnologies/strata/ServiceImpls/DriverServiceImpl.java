@@ -2,6 +2,7 @@ package com.arqtechnologies.strata.ServiceImpls;
 
 import com.arqtechnologies.strata.DTOs.DriverRequestDTO;
 import com.arqtechnologies.strata.DTOs.DriverResponseDTO;
+import com.arqtechnologies.strata.DTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
 import com.arqtechnologies.strata.Repositories.DriverRepository;
 import com.arqtechnologies.strata.Services.DriverService;
@@ -55,4 +56,32 @@ public class DriverServiceImpl implements DriverService {
                 .createdDate(existingUser.getCreatedDate())
                 .build();
     }
+
+//    @Override
+//    public UserResponseDTO updateDriver(DriverRequestDTO driverRequestDTO) {
+//
+//        //TODO PUT RESTRICTIONS ON THE FREQUENCY OF HOW THIS CAN BE DONE PER USER
+//        //TODO PROTOCOLS SHOULD BE PUT IN PLACE
+//        Driver driver = driverRepository.findById(driverRequestDTO.getDriverId())
+//                                        .orElseThrow(()-> new RuntimeException("Couldn't find Driver with id " + driverRequestDTO.getDriverId()));
+//
+//        //TODO LIMIT THE CHANGE OF LICENSE NUMBER AND PLATE NUMBER, THEY SHOULD APPLY FOR THAT
+//        driver.set
+//        return null;
+//    }
+
+    @Override
+    public void deleteDriverAccount(Integer driverId) {
+        driverRepository.deleteById(driverId);
     }
+
+    @Override
+    public DriverResponseDTO passwordReset(DriverRequestDTO driverRequestDTO) {
+        return null;
+    }
+
+    @Override
+    public DriverRequestDTO licenseVerification(DriverRequestDTO driverRequestDTO) {
+        return null;
+    }
+}

@@ -7,10 +7,10 @@ import com.arqtechnologies.strata.DTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Services.DriverService;
 import com.arqtechnologies.strata.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/driver")
@@ -18,6 +18,8 @@ public class DriverRestController {
 
     @Autowired
     private DriverService driverService;
+
+    @Autowired
     private UserService userService;
 
     @PostMapping
@@ -41,12 +43,14 @@ public class DriverRestController {
         return restResponsePojo;
     }
 
+
+    //TODO MOVE TO ADMIN PANEL
     @GetMapping("/getall")
     @ResponseStatus(HttpStatus.FOUND)
-    public RestResponsePojo<List<UserResponseDTO>> getAllByRole(@RequestParam Integer roleId){
+    public RestResponsePojo<Page<UserResponseDTO>> getAllDrivers(Pageable pageable){
 
-        RestResponsePojo<List<UserResponseDTO>> restResponsePojo= new RestResponsePojo<>();
-        restResponsePojo.setData(userService.getAllUser(roleId));
+        RestResponsePojo<Page<UserResponseDTO>> restResponsePojo= new RestResponsePojo<>();
+        restResponsePojo.setData(userService.getAllUser(0, pageable));
 
         return restResponsePojo;
     }

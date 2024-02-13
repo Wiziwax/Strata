@@ -10,6 +10,8 @@ import lombok.Data;
 @Builder
 public class PassengerRequestDTO {
 
+    private Integer passengerId;
+
     private String firstName;
     private String lastName;
     private String email;

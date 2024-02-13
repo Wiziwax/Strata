@@ -1,13 +1,16 @@
 package com.arqtechnologies.strata.Enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum EnumRole {
 
-    DRIVER(1),
-    PASSENGER(2),
-    CUSTOMER_SERVICE(3),
-    DEVELOPER(4),
-    ADMIN(5),
-    OTHER(6);
+//    @JsonProperty("DRIVER")
+    DRIVER(0),
+    PASSENGER(1),
+    CUSTOMER_SERVICE(2),
+    DEVELOPER(3),
+    ADMIN(4),
+    OTHER(5);
 
 
 

@@ -36,6 +36,7 @@ public class User {
     @Column
     private String phoneNumber2;
     @Column
+    @Enumerated(EnumType.ORDINAL)
     private EnumRole userRole;
     @Column
     @CreatedBy
@@ -43,5 +44,7 @@ public class User {
     @Column
     @CreatedDate
     private Date createdDate;
+
+    //TODO USER IMAGE
 
 }

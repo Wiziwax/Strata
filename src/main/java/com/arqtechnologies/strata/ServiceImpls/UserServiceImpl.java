@@ -11,6 +11,8 @@ import com.arqtechnologies.strata.Enums.EnumRole;
 import com.arqtechnologies.strata.Repositories.UserRepository;
 import com.arqtechnologies.strata.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -48,23 +50,7 @@ public class UserServiceImpl implements UserService {
 //        return "Successfully Created";
 //    }
 
-    @Override
-    public String createPassenger(PassengerRequestDTO passengerRequestDTO) {
 
-        Passenger newPassenger = new Passenger();
-
-        newPassenger.setFirstName(passengerRequestDTO.getFirstName());
-        newPassenger.setLastName(passengerRequestDTO.getLastName());
-        newPassenger.setEmail(passengerRequestDTO.getEmail());
-        newPassenger.setPassword(passengerRequestDTO.getPassword());
-        newPassenger.setPhoneNumber(passengerRequestDTO.getPhoneNumber());
-        newPassenger.setPhoneNumber2(passengerRequestDTO.getPhoneNumber2());
-        newPassenger.setCreatedDate(new Date());
-//        newPassenger.setCreatedBy();//TODO AUTHENTICATION
-        newPassenger.setUserRole(PASSENGER);
-
-        return "Successfully Created";
-    }
 
     @Override
     public String createAdmin(UserRequestDTO userRequestDTO) {
@@ -119,13 +105,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponseDTO> getAllUser(Integer roleId) {
-        userRepository.getUserByUserRole(EnumRole.fromNumericValue(roleId));
-        return null;
+    public Page<UserResponseDTO> getAllUser(Integer roleId, Pageable pageable) {
+
+        EnumRole enumRole = EnumRole.fromNumericValue(roleId);
+        Page<User> userPage = userRepository.getUserByUserRole(enumRole, pageable);
+
+        return userPage.map(user -> UserResponseDTO.builder()
+                .createdDate(user.getCreatedDate())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .phoneNumber2(user.getPhoneNumber2())
+                .userRole(user.getUserRole())
+                .build());
     }
 
     @Override
-    public UserResponseDTO updateUser(Integer userId) {
+    public UserResponseDTO updateUser(UserRequestDTO userRequestDTO) {
         return null;
     }
 
@@ -140,7 +137,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(existingUser.getFirstName())
                 .lastName(existingUser.getLastName())
                 .email(existingUser.getEmail())
-                .userRole(EnumRole.fromNumericValue(existingUser.getUserRole().getNumericValue()))
+                .userRole(existingUser.getUserRole())
                 .phoneNumber(existingUser.getPhoneNumber())
                 .phoneNumber2(existingUser.getPhoneNumber2())
                 .createdDate(existingUser.getCreatedDate())

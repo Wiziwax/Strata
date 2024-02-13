@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 public class DriverRequestDTO {
 
-
+    private Integer driverId;
     private String firstName;
     private String lastName;
     private String email;
