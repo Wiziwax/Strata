@@ -2,7 +2,8 @@ package com.arqtechnologies.strata.Enums;
 
 public enum EnumStatus {
 
-    BOOKED,
+    REQUESTED,
+    ACCEPTED,
     IN_PROGRESS,
     COMPLETED
 }

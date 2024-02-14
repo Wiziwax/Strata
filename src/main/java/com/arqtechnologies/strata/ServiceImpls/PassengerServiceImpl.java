@@ -33,6 +33,8 @@ public class PassengerServiceImpl implements PassengerService {
 //        newPassenger.setCreatedBy();//TODO AUTHENTICATION
         newPassenger.setUserRole(PASSENGER);
 
+        passengerRepository.save(newPassenger);
+
         return "Successfully Created";
     }
 

@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/j2/driver")
+@RequestMapping("/api/driver")
 public class DriverRestController {
 
     @Autowired
@@ -25,6 +25,7 @@ public class DriverRestController {
 
         RestResponsePojo<String> restResponsePojo = new RestResponsePojo<>();
         restResponsePojo.setData(driverService.createDriver(driverRequestDTO));
+        restResponsePojo.setMessage("Successful");
         restResponsePojo.setSuccess(true);
         return restResponsePojo;
     }

@@ -23,20 +23,25 @@ public class DriverServiceImpl implements DriverService {
     public String createDriver(DriverRequestDTO driverRequestDTO) {
         Driver newDriver = new Driver();
 
-        newDriver.setFirstName(driverRequestDTO.getFirstName());
-        newDriver.setLastName(driverRequestDTO.getLastName());
-        newDriver.setEmail(driverRequestDTO.getEmail());
+        newDriver.setFirstName(driverRequestDTO.getFirstName().trim());
+        newDriver.setLastName(driverRequestDTO.getLastName().trim());
+        newDriver.setEmail(driverRequestDTO.getEmail().toLowerCase());
         newDriver.setPassword(driverRequestDTO.getPassword());
-        newDriver.setPhoneNumber(driverRequestDTO.getPhoneNumber());
-        newDriver.setPhoneNumber2(driverRequestDTO.getPhoneNumber2());
-        newDriver.setLicenseNumber(driverRequestDTO.getLicenseNumber());
-        newDriver.setCarModel(driverRequestDTO.getCarModel());
-        newDriver.setCarColour(driverRequestDTO.getCarColour());
-        newDriver.setCarPlateNumber(driverRequestDTO.getCarPlateNumber());
+        newDriver.setPhoneNumber(driverRequestDTO.getPhoneNumber().trim());
+        newDriver.setPhoneNumber2(driverRequestDTO.getPhoneNumber2().trim());
+        newDriver.setLicenseNumber(driverRequestDTO.getLicenseNumber().trim());
+        newDriver.setIdType(driverRequestDTO.getIdType());//Create an Enum or a static data for this
+        newDriver.setCarModel(driverRequestDTO.getCarModel().trim());
+        newDriver.setCarType(driverRequestDTO.getCarType());
+        newDriver.setCarColour(driverRequestDTO.getCarColour().trim());
+        newDriver.setCarPlateNumber(driverRequestDTO.getCarPlateNumber().trim());
         newDriver.setCarCapacity(driverRequestDTO.getCarCapacity());
-//        newDriver.setCreatedBy();//TODO AUTHENTICATION
+//        newDriver.setCreatedBy(newDriver.getUserId());//TODO AUTHENTICATION
         newDriver.setCreatedDate(new Date());
         newDriver.setUserRole(DRIVER);
+        newDriver.setAverageRating(0.0);
+        newDriver.setIsAvailable(true);
+        newDriver.setTrips(0);
 
         driverRepository.save(newDriver);
         return "Successfully Created";

@@ -1,7 +1,5 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
-import com.arqtechnologies.strata.DTOs.DriverRequestDTO;
-import com.arqtechnologies.strata.DTOs.PassengerRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
@@ -9,19 +7,16 @@ import com.arqtechnologies.strata.Entities.Passenger;
 import com.arqtechnologies.strata.Entities.User;
 import com.arqtechnologies.strata.Enums.EnumRole;
 import com.arqtechnologies.strata.Repositories.DriverRepository;
+import com.arqtechnologies.strata.Repositories.PassengerRepository;
 import com.arqtechnologies.strata.Repositories.UserRepository;
 import com.arqtechnologies.strata.Services.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.ObjectUtils;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
-import static com.arqtechnologies.strata.Enums.EnumRole.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,24 +24,51 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private DriverRepository driverRepository;
+
+    @Autowired
+    private PassengerRepository passengerRepository;
+
 
     @Override
     public String createUser(UserRequestDTO userRequestDTO) {
-        User newUser = new User();
-       newUser.setFirstName(userRequestDTO.getFirstName());
-       newUser.setLastName(userRequestDTO.getLastName());
-       newUser.setEmail(userRequestDTO.getEmail());
-       newUser.setPassword(userRequestDTO.getPassword());
-       newUser.setPhoneNumber(userRequestDTO.getPhoneNumber());
-       newUser.setPhoneNumber2(userRequestDTO.getPhoneNumber2());
-       newUser.setCreatedDate(new Date());
-//       user.er.setCreatedBy();
+        EnumRole userRole = userRequestDTO.getUserRole();
 
-        //TODO IF USER IS DRIVER OR PASSENGER, CALL THEIR CORRESPONDING REPOSITORY
-       newUser.setUserRole(userRequestDTO.getUserRole());
-       userRepository.save(newUser);
-        return "Successfully Created";
+        switch (userRole) {
+            case DRIVER -> {
+                Driver newDriver = new Driver();
+                copyCommonProperties(userRequestDTO, newDriver);
+                driverRepository.save(newDriver);
+                return "Driver Successfully Created";
+            }
+            case PASSENGER -> {
+                Passenger newPassenger = new Passenger();
+                copyCommonProperties(userRequestDTO, newPassenger);
+                passengerRepository.save(newPassenger);
+                return "Passenger Successfully Created";
+            }
+            default -> {
+                User newUser = new User();
+                copyCommonProperties(userRequestDTO, newUser);
+                userRepository.save(newUser);
+                return EnumRole.fromNumericValue(userRole.getNumericValue()) +
+                        " Successfully Created";
+            }//TODO AFTER DOING SECURITY MOVE THIS TO A METHOD THAT'LL PROTECTED AND LET ONLY ADMINS ACCESS
+        }
     }
+
+    private void copyCommonProperties(UserRequestDTO userRequestDTO, User user) {
+        user.setFirstName(userRequestDTO.getFirstName().trim());
+        user.setLastName(userRequestDTO.getLastName().trim());
+        user.setEmail(userRequestDTO.getEmail().toLowerCase());
+        user.setPassword(userRequestDTO.getPassword());
+        user.setPhoneNumber(userRequestDTO.getPhoneNumber().trim());
+        user.setPhoneNumber2(userRequestDTO.getPhoneNumber2().trim());
+        user.setCreatedDate(new Date());
+        user.setUserRole(userRequestDTO.getUserRole());
+    }
+
 
 
     @Override
@@ -55,15 +77,7 @@ public class UserServiceImpl implements UserService {
         EnumRole enumRole = EnumRole.fromNumericValue(roleId);
         Page<User> userPage = userRepository.getUserByUserRole(enumRole, pageable);
 
-        return userPage.map(user -> UserResponseDTO.builder()
-                .createdDate(user.getCreatedDate())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .phoneNumber2(user.getPhoneNumber2())
-                .userRole(user.getUserRole())
-                .build());
+        return userPage.map(user -> UserResponseDTO.builder().createdDate(user.getCreatedDate()).firstName(user.getFirstName()).lastName(user.getLastName()).email(user.getEmail()).phoneNumber(user.getPhoneNumber()).phoneNumber2(user.getPhoneNumber2()).userRole(user.getUserRole()).build());
     }
 
     @Override
@@ -75,18 +89,9 @@ public class UserServiceImpl implements UserService {
     //TODO
     @Override
     public UserResponseDTO getById(Integer userId) {
-        User existingUser = userRepository
-                .findById(userId).orElseThrow(RuntimeException::new);
+        User existingUser = userRepository.findById(userId).orElseThrow(RuntimeException::new);
 
-        return  UserResponseDTO.builder()
-                .firstName(existingUser.getFirstName())
-                .lastName(existingUser.getLastName())
-                .email(existingUser.getEmail())
-                .userRole(existingUser.getUserRole())
-                .phoneNumber(existingUser.getPhoneNumber())
-                .phoneNumber2(existingUser.getPhoneNumber2())
-                .createdDate(existingUser.getCreatedDate())
-                .build();
+        return UserResponseDTO.builder().firstName(existingUser.getFirstName()).lastName(existingUser.getLastName()).email(existingUser.getEmail()).userRole(existingUser.getUserRole()).phoneNumber(existingUser.getPhoneNumber()).phoneNumber2(existingUser.getPhoneNumber2()).createdDate(existingUser.getCreatedDate()).build();
     }
 
     @Override

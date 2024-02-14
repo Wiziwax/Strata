@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Table(name = "ride")
@@ -35,6 +36,10 @@ public class Ride {
     LocalDateTime startTime;
     @Column
     LocalDateTime endTime;
+    @Column
+    BigDecimal transportFare;
+    @Column
+    Double rating;
     @Column
     EnumPaymentMethod paymentMethod;
 }

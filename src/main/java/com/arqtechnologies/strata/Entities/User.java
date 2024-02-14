@@ -15,9 +15,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
@@ -40,7 +38,7 @@ public class User {
     private EnumRole userRole;
     @Column
     @CreatedBy
-    private String createdBy;
+    private Integer createdBy;
     @Column
     @CreatedDate
     private Date createdDate;

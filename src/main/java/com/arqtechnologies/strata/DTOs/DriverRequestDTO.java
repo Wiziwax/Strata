@@ -1,12 +1,9 @@
 package com.arqtechnologies.strata.DTOs;
 
-import com.arqtechnologies.strata.Entities.User;
-import com.arqtechnologies.strata.Enums.EnumPaymentMethod;
-import com.arqtechnologies.strata.Enums.EnumRole;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.Date;
+import org.springframework.lang.NonNull;
 
 @Data
 @Builder
@@ -20,10 +17,19 @@ public class DriverRequestDTO {
     private String phoneNumber;
     private String phoneNumber2;
 
+    @NonNull
+    private String idType;
+    @NonNull
     private String licenseNumber;
+    @NonNull
     private String carModel;
+    @NonNull
     private String carColour;
+    @NonNull
     private String carPlateNumber;
+    @NonNull
+    private String carType;
+    @NonNull
     private Integer carCapacity;
 
 }
