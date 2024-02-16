@@ -1,4 +1,4 @@
-package com.arqtechnologies.strata.DTOs;
+package com.arqtechnologies.strata.DTOs.UserDTOs;
 
 import lombok.Data;
 

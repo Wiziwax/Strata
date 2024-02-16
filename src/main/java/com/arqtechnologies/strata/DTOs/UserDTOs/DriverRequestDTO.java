@@ -1,15 +1,15 @@
-package com.arqtechnologies.strata.DTOs;
+package com.arqtechnologies.strata.DTOs.UserDTOs;
 
-import com.arqtechnologies.strata.Enums.EnumRole;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.Date;
+import org.springframework.lang.NonNull;
 
 @Data
 @Builder
-public class DriverResponseDTO {
+public class DriverRequestDTO {
 
+    private Integer driverId;
     private String firstName;
     private String lastName;
     private String email;
@@ -17,15 +17,19 @@ public class DriverResponseDTO {
     private String phoneNumber;
     private String phoneNumber2;
 
+    @NonNull
+    private String idType;
+    @NonNull
     private String licenseNumber;
+    @NonNull
     private String carModel;
+    @NonNull
     private String carColour;
+    @NonNull
     private String carPlateNumber;
+    @NonNull
+    private String carType;
+    @NonNull
     private Integer carCapacity;
-    private Boolean isAvailable;
-    private Long trips;
-    private Float averageRating;
 
-    private Date createdDate;
-    private EnumRole userRole;
 }

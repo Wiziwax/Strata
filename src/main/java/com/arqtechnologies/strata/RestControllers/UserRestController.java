@@ -1,9 +1,8 @@
 package com.arqtechnologies.strata.RestControllers;
 
-import com.arqtechnologies.strata.DTOs.DriverRequestDTO;
-import com.arqtechnologies.strata.DTOs.RestResponsePojo;
-import com.arqtechnologies.strata.DTOs.UserRequestDTO;
-import com.arqtechnologies.strata.DTOs.UserResponseDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.RestResponsePojo;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserRequestDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Services.DriverService;
 import com.arqtechnologies.strata.Services.PassengerService;
 import com.arqtechnologies.strata.Services.UserService;
@@ -50,4 +49,7 @@ public class UserRestController {
 
         return restResponsePojo;
     }
+
+    //Get ride by driver and user
+
 }

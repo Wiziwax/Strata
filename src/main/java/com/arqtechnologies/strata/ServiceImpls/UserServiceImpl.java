@@ -1,7 +1,7 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
-import com.arqtechnologies.strata.DTOs.UserRequestDTO;
-import com.arqtechnologies.strata.DTOs.UserResponseDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserRequestDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
 import com.arqtechnologies.strata.Entities.Passenger;
 import com.arqtechnologies.strata.Entities.User;
@@ -10,7 +10,6 @@ import com.arqtechnologies.strata.Repositories.DriverRepository;
 import com.arqtechnologies.strata.Repositories.PassengerRepository;
 import com.arqtechnologies.strata.Repositories.UserRepository;
 import com.arqtechnologies.strata.Services.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

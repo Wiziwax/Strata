@@ -5,9 +5,10 @@ import com.arqtechnologies.strata.Enums.EnumStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Table(name = "ride")
 @Getter
@@ -25,21 +26,54 @@ public class Ride {
     @Column
     Integer passengerId;
     @Column
+    String passengerName;
+    @Column
+    String carType;
+    @Column
     Integer driverId;
     @Column
-    String startLocation;
+    String driverName;
     @Column
-    String endLocation;
+    String startLocationName;
+    @Column
+    String endLocationName;
+    @Column
+    Double startLongitude;
+    @Column
+    Double startLatitude;
+    @Column
+    Double endLongitude;
+    @Column
+    Double endLatitude;
     @Column
     EnumStatus bookingStatus;
     @Column
-    LocalDateTime startTime;
+    Date startTime;
     @Column
-    LocalDateTime endTime;
+    Date endTime;
     @Column
     BigDecimal transportFare;
     @Column
     Double rating;
     @Column
     EnumPaymentMethod paymentMethod;
+    @Column
+    @CreatedDate
+    Date createdDate;
+    @Column
+    String additionalNotes;
+    @Column
+    String reviews;
+    @Column
+    String originAddress;
+    @Column
+    String destinationAddress;
+    @Column
+    String buildingName;
+    @Column
+    String landmarkNearby;
+    @Column
+    Integer estimatedDistance;
+    @Column
+    Integer ETA;
 }

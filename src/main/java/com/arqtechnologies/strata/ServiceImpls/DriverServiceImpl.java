@@ -1,8 +1,7 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
-import com.arqtechnologies.strata.DTOs.DriverRequestDTO;
-import com.arqtechnologies.strata.DTOs.DriverResponseDTO;
-import com.arqtechnologies.strata.DTOs.UserResponseDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.DriverRequestDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
 import com.arqtechnologies.strata.Repositories.DriverRepository;
 import com.arqtechnologies.strata.Services.DriverService;

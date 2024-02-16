@@ -1,8 +1,7 @@
 package com.arqtechnologies.strata.Services;
 
-import com.arqtechnologies.strata.DTOs.PassengerRequestDTO;
-import com.arqtechnologies.strata.DTOs.UserRequestDTO;
-import com.arqtechnologies.strata.DTOs.UserResponseDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserRequestDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

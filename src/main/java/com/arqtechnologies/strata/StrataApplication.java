@@ -10,4 +10,6 @@ public class StrataApplication {
         SpringApplication.run(StrataApplication.class, args);
     }
 
+    //TODO MOVE ALL THE ENUMS TO STATIC DATA
+
 }

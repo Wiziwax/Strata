@@ -1,6 +1,8 @@
 package com.arqtechnologies.strata.RestControllers;
 
-import com.arqtechnologies.strata.DTOs.*;
+import com.arqtechnologies.strata.DTOs.UserDTOs.DriverRequestDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.RestResponsePojo;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Services.DriverService;
 import com.arqtechnologies.strata.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,4 +74,8 @@ public class DriverRestController {
 
         return restResponsePojo;
     }
+
+    //Search for clusters
+    //Search by destination
+
 }

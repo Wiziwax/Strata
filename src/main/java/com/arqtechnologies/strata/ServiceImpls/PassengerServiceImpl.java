@@ -1,7 +1,7 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
-import com.arqtechnologies.strata.DTOs.PassengerRequestDTO;
-import com.arqtechnologies.strata.DTOs.PassengerResponseDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerRequestDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerResponseDTO;
 import com.arqtechnologies.strata.Entities.Passenger;
 import com.arqtechnologies.strata.Repositories.PassengerRepository;
 import com.arqtechnologies.strata.Services.PassengerService;
