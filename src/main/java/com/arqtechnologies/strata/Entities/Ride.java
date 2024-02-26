@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 @Table(name = "ride")
 @Getter
@@ -76,4 +77,7 @@ public class Ride {
     Integer estimatedDistance;
     @Column
     Integer ETA;
+
+    @OneToMany
+    Set<Driver> driversInPath;
 }

@@ -20,6 +20,8 @@ public class Location {
     @Column
     String address;
     @Column
+    String driverId;
+    @Column
     Double latitude;
     @Column
     Double longitude;

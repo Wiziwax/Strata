@@ -50,6 +50,11 @@ public class DriverRestController {
 //    }
 //TODO THE ABOVE API should take Driver location and see just as much as subscribed for for cluster of passengers
 
+    //View passengers going driver's direction
+//    @GetMapping("viewonpath")
+//    public RestResponsePojo<String> seePassengers(@RequestParam DriverRequestDTO driverRequestDTO){
+//
+//    }
 
 
     //TODO DOUBT WE'LL NEED THIS HERE

@@ -31,7 +31,6 @@ public class GoogleMapsService {
 
 
 
-
     //TODO OPEN UP FOR OTHER LANGUAGES
     public DistanceMatrixResponse getDistanceMatrix(String origin, String destination){
 

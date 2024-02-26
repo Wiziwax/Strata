@@ -10,7 +10,6 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Driver extends User{

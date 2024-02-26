@@ -3,7 +3,6 @@ package com.arqtechnologies.strata.Entities;
 import com.arqtechnologies.strata.Enums.EnumRole;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -12,7 +11,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -42,7 +40,18 @@ public class User {
     @Column
     @CreatedDate
     private Date createdDate;
-
+    @Column
+    private Double originLongitude;
+    @Column
+    private Double originLatitude;
+    @Column
+    private String userLocation;
+    @Column
+    private Double destinationLongitude;
+    @Column
+    private Double destinationLatitude;
+    @Column
+    private String destinationDescription;
     //TODO USER IMAGE
 
     //TODO DO EXCEPTION HANDLING FOR THE APPLICATION

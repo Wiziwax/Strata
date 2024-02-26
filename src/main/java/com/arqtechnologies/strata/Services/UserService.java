@@ -1,5 +1,6 @@
 package com.arqtechnologies.strata.Services;
 
+import com.arqtechnologies.strata.DTOs.UserDTOs.LocationRequest;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import org.springframework.data.domain.Page;
@@ -13,4 +14,5 @@ public interface UserService {
     UserResponseDTO updateUser(UserRequestDTO userRequestDTO);
     UserResponseDTO getById(Integer userId);
     void deleteAccount();
+    void updateUserLocation(LocationRequest locationRequest);
 }

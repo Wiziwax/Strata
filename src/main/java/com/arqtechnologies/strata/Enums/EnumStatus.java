@@ -5,5 +5,6 @@ public enum EnumStatus {
     REQUESTED,
     ACCEPTED,
     IN_PROGRESS,
-    COMPLETED
+    COMPLETED,
+    NO_DRIVERS_AVAILABLE
 }

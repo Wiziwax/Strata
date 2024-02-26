@@ -1,5 +1,6 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
+import com.arqtechnologies.strata.DTOs.UserDTOs.LocationRequest;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -96,5 +98,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteAccount() {
 
+    }
+
+    @Override
+    public void updateUserLocation(LocationRequest locationRequest) {
+
+        Optional<User> optionalUser = userRepository.findById(locationRequest.getUserId());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setOriginLatitude(locationRequest.getLatitude());
+            user.setOriginLongitude(locationRequest.getLongitude());
+            userRepository.save(user);
+        }
     }
 }

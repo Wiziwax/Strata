@@ -12,28 +12,13 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GeocodingResponse {
 
-    private List<Result> results;
+    private List<Results> results;
     private String status;
 
-    public List<Result> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Result {
+    public static class Results {
 
         @JsonProperty("address_components")
         private List<AddressComponent> addressComponents;

@@ -5,12 +5,16 @@ import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.RestResponsePojo;
+import com.arqtechnologies.strata.ServiceImpls.RideServiceImpl;
 import com.arqtechnologies.strata.Services.DriverService;
 import com.arqtechnologies.strata.Services.PassengerService;
 import com.arqtechnologies.strata.Services.RideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Driver;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/passenger")
@@ -24,6 +28,9 @@ public class PassengerRestController {
 
     @Autowired
     private RideService rideService;
+
+    @Autowired
+    private RideServiceImpl rideServiceImpl;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,12 +65,26 @@ public class PassengerRestController {
 
     @PostMapping("riderequest")
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<String> createRide(@RequestBody RideRequestDTO rideRequestDTO){
+    public RestResponsePojo<String> createRide(@RequestBody RideRequestDTO rideRequestDTO) throws InterruptedException {
 
         RestResponsePojo<String> restResponsePojo = new RestResponsePojo<>();
         restResponsePojo.setData(rideService.createRide(rideRequestDTO));
         restResponsePojo.setSuccess(true);
         restResponsePojo.setMessage("Ride successfully requested");
+//        rideServiceImpl.PrintDrivers("Sad man");
+        return restResponsePojo;
+    }
+
+    //TODO DRIVERS INDICATE PATH THEY"RE TRAVELLING
+    @GetMapping("driversinpath")
+    @ResponseStatus(HttpStatus.OK)
+    public RestResponsePojo<DriverResponseDTO> getDriversHeadingInDirection(@RequestBody PassengerRequestDTO passengerRequestDTO){
+
+        RestResponsePojo<DriverResponseDTO> restResponsePojo =new RestResponsePojo<>();
+//        restResponsePojo.setData();
+        restResponsePojo.setSuccess(true);
+        restResponsePojo.setMessage("Drivers Found");
+
         return restResponsePojo;
     }
 

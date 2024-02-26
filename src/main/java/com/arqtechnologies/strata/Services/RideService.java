@@ -5,7 +5,7 @@ import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 
 public interface RideService {
 
-    String createRide(RideRequestDTO rideRequestDTO);
+    String createRide(RideRequestDTO rideRequestDTO) throws InterruptedException;
     RideResponseDTO driverMatching();
     RideResponseDTO rideStatusUpdate();
     RideResponseDTO fareCalculation();
