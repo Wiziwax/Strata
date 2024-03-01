@@ -3,6 +3,8 @@ package com.arqtechnologies.strata.ServiceImpls;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
+import com.arqtechnologies.strata.Entities.GeoCodingResponses.DirectionMatrixClasses.Route;
+import com.arqtechnologies.strata.Entities.GeoCodingResponses.DirectionsMatrixResponse;
 import com.arqtechnologies.strata.Entities.GeoCodingResponses.DistanceMatrixResponse;
 import com.arqtechnologies.strata.Entities.GeoCodingResponses.GeocodingResponse;
 import com.arqtechnologies.strata.Entities.Ride;
@@ -14,15 +16,20 @@ import com.arqtechnologies.strata.Utils.RideEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import static com.arqtechnologies.strata.Enums.EnumStatus.*;
 
 @Service
+//@EnableAsync
 public class RideServiceImpl implements RideService {
 
     @Autowired
@@ -36,12 +43,12 @@ public class RideServiceImpl implements RideService {
 
 
 
-    public String createRide(RideRequestDTO rideRequestDTO) throws InterruptedException {
+    public Integer createRide(RideRequestDTO rideRequestDTO) throws InterruptedException {
         Ride newRide = new Ride();
 
         setRideAttributesFromDTO(newRide, rideRequestDTO);
 
-        try {
+//        try {
             GeocodingResponse.Results originGeoCodingResult = googleMapsService.getGeocodingData(rideRequestDTO.getOriginAddress()).getResults().get(0);
             GeocodingResponse.Results destinationGeoCodingResult = googleMapsService.getGeocodingData(rideRequestDTO.getDestinationAddress()).getResults().get(0);
 
@@ -51,15 +58,63 @@ public class RideServiceImpl implements RideService {
 
             setRideDistanceAttributes(newRide, distanceMatrixElement);
 
-        } catch (Exception e) {
+//        } catch (Exception e) {
             // Handle exceptions (e.g., API call failures) appropriately
-            return "Failed to create ride";
+//            return "Failed to create ride";
+//            return 5;
+//        }
+
+        //TODO In driver-matching, match them based on active rides
+        //TODO Ride Table should be like an activity table where every new ride created deactivates all the rest
+
+
+
+
+        Integer routesCount = googleMapsService.getDirectionMatrix(rideRequestDTO.getOriginAddress(), rideRequestDTO.getDestinationAddress(), true).getRoutes().size();
+
+        DirectionsMatrixResponse response = googleMapsService.getDirectionMatrix(rideRequestDTO.getOriginAddress(),
+                rideRequestDTO.getDestinationAddress(), true);
+
+        List<String> summaries = extractSummaries(response);
+
+        for (String summary : summaries) {
+
+            System.out.println("List of summaries: " + summary);
         }
 
         rideRepository.save(newRide);
         System.out.println("Ride created successfully");
-        return "Ride created successfully";
+        return routesCount;
     }
+
+
+    private static List<String> extractSummaries(DirectionsMatrixResponse response) {
+        List<String> summaries = new ArrayList<>();
+
+        if (response != null && response.getRoutes() != null) {
+            for (Route route : response.getRoutes()) {
+                if (route != null && route.getSummary() != null) {
+                    summaries.add(route.getSummary());
+                }
+            }
+        }
+
+        return summaries;
+    }
+
+//
+//    private static List<String> extractSummaries(DirectionsMatrixResponse response) {
+//        return Optional.ofNullable(response)
+//                .map(DirectionsMatrixResponse::getRoutes)
+//                .stream()
+//                .flatMap(List::stream)
+//                .map(Route::getSummary)
+//                .filter(summary -> summary != null && !summary.isEmpty())
+//                .collect(Collectors.toList());
+//    }
+//
+
+
 
     public CompletableFuture<List<Driver>> PrintDrivers(String matchingResultString) throws InterruptedException {
         Thread.sleep(20000L);
@@ -67,14 +122,21 @@ public class RideServiceImpl implements RideService {
     }
 
     private void setRideAttributesFromDTO(Ride newRide, RideRequestDTO rideRequestDTO) {
+//        newRide.setPassengerId();//TODO SIGNED IN USER
         newRide.setCarType(rideRequestDTO.getCarType());
+        newRide.setStartLongitude(rideRequestDTO.getStartLongitude());
+        newRide.setStartLatitude(rideRequestDTO.getStartLatitude());
+        newRide.setEndLatitude(rideRequestDTO.getEndLatitude());
+        newRide.setEndLongitude(rideRequestDTO.getEndLongitude());
         newRide.setBookingStatus(REQUESTED);
         newRide.setPaymentMethod(rideRequestDTO.getPaymentMethod());
         newRide.setCreatedDate(new Date());
         newRide.setAdditionalNotes(rideRequestDTO.getAdditionalNotes());
         newRide.setOriginAddress(rideRequestDTO.getDestinationAddress());
         newRide.setDestinationAddress(rideRequestDTO.getDestinationAddress());
-        newRide.set
+
+
+
         //TODO GEO DISTANCE MATRIX
         newRide.setEstimatedDistance(0); // Set default values
         newRide.setETA(0); // Set default values
@@ -122,23 +184,23 @@ public class RideServiceImpl implements RideService {
     public void cancelRide() {
     }
 
-    @Async
-    public CompletableFuture<List<Driver>> matchDriversAsync(String userLocation, Double latitude, Double longitude) {
-        // Implement your driver matching logic here
-        // Return a CompletableFuture with the matched drivers
-
-        CompletableFuture<List<Driver>> availableDrivers = driverRepository.find
-
-//        simulateDelay();
-
-        //TODO Filter available drivers based on the user's location
-//        List<DriverTest> availableDrivers = allDrivers.stream()
-//                .filter(driver -> driver.isAvailable() && isWithinRadius(driver.getLocation(), userLocation))
-//                .collect(Collectors.toList());
-
-        List<Driver> availableDrivers = driverRepository.getAllByIsAvailable(true);
-        return CompletableFuture.completedFuture(availableDrivers);
-    }
+//    @Async
+//    public CompletableFuture<List<Driver>> matchDriversAsync(String userLocation, Double latitude, Double longitude) {
+//        // Implement your driver matching logic here
+//        // Return a CompletableFuture with the matched drivers
+//
+////        CompletableFuture<List<Driver>> availableDrivers = driverRepository.find
+//
+////        simulateDelay();
+//
+//        //TODO Filter available drivers based on the user's location
+////        List<DriverTest> availableDrivers = allDrivers.stream()
+////                .filter(driver -> driver.isAvailable() && isWithinRadius(driver.getLocation(), userLocation))
+////                .collect(Collectors.toList());
+//
+//        List<Driver> availableDrivers = driverRepository.getAllByIsAvailable(true);
+//        return CompletableFuture.completedFuture(availableDrivers);
+//    }
 
 
 

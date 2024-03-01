@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Driver;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -65,9 +66,9 @@ public class PassengerRestController {
 
     @PostMapping("riderequest")
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<String> createRide(@RequestBody RideRequestDTO rideRequestDTO) throws InterruptedException {
+    public RestResponsePojo<Integer> createRide(@RequestBody RideRequestDTO rideRequestDTO) throws InterruptedException {
 
-        RestResponsePojo<String> restResponsePojo = new RestResponsePojo<>();
+        RestResponsePojo<Integer> restResponsePojo = new RestResponsePojo<>();
         restResponsePojo.setData(rideService.createRide(rideRequestDTO));
         restResponsePojo.setSuccess(true);
         restResponsePojo.setMessage("Ride successfully requested");
@@ -76,16 +77,17 @@ public class PassengerRestController {
     }
 
     //TODO DRIVERS INDICATE PATH THEY"RE TRAVELLING
-    @GetMapping("driversinpath")
-    @ResponseStatus(HttpStatus.OK)
-    public RestResponsePojo<DriverResponseDTO> getDriversHeadingInDirection(@RequestBody PassengerRequestDTO passengerRequestDTO){
-
-        RestResponsePojo<DriverResponseDTO> restResponsePojo =new RestResponsePojo<>();
-//        restResponsePojo.setData();
-        restResponsePojo.setSuccess(true);
-        restResponsePojo.setMessage("Drivers Found");
-
-        return restResponsePojo;
-    }
+//    @GetMapping("driversinpath")
+//    @ResponseStatus(HttpStatus.OK)
+//    public RestResponsePojo<DriverResponseDTO> getDriversHeadingInDirection(@RequestBody ){
+//
+//        RestResponsePojo<DriverResponseDTO> restResponsePojo =new RestResponsePojo<>();
+////        restResponsePojo.setData();
+//        restResponsePojo.setSuccess(true);
+//        restResponsePojo.setMessage("Drivers Found");
+//
+//
+//        return restResponsePojo;
+//    }
 
 }

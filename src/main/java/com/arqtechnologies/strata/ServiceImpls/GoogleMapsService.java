@@ -1,6 +1,7 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
 
+import com.arqtechnologies.strata.Entities.GeoCodingResponses.DirectionsMatrixResponse;
 import com.arqtechnologies.strata.Entities.GeoCodingResponses.DistanceMatrixResponse;
 import com.arqtechnologies.strata.Entities.GeoCodingResponses.GeocodingResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,4 +40,15 @@ public class GoogleMapsService {
         System.out.println(url);
         return restTemplate.getForObject(url, DistanceMatrixResponse.class);
     }
+
+
+    public DirectionsMatrixResponse getDirectionMatrix(String origin, String destination, boolean alternatives){
+
+        String apiUrl = "https://maps.googleapis.com/maps/api/directions/json";
+        String url = String.format("%s?origin=%s&alternatives=%s&&destination=%s&key=%s", apiUrl, origin, alternatives, destination, apiKey);
+        System.out.println(url);
+        return restTemplate.getForObject(url, DirectionsMatrixResponse.class);
+    }
+
+
 }

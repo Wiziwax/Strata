@@ -1,5 +1,8 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
+import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
+import com.arqtechnologies.strata.DTOs.Routes;
+import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerResponseDTO;
 import com.arqtechnologies.strata.Entities.Passenger;
@@ -54,4 +57,17 @@ public class PassengerServiceImpl implements PassengerService {
 
         return null;
     }
+
+    @Override
+    public DriverResponseDTO getDriversInPath(Integer passengerId, RideRequestDTO rideRequestDTO) {
+        //TODO LET IT NOT JUST CONTAIN EVERYONE HEADING THERE, OTHERWISE EVEN PEOPLE NOT IN PATH WILL BE IDENTIFIED,
+        // SO ALSO FILTER BY PATH AND DESTINATION
+
+        //TODO USE GOOGLE API TO FIND THE PATHS AND GET THE DRIVERS ACTUALLY HEADING IN THE SAME PATH.
+        return null;
+    }
+
+//    public Routes getDestinationRoutes(String Destination){
+//
+//    }
 }

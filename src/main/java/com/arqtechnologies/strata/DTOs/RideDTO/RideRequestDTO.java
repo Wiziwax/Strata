@@ -14,12 +14,10 @@ public class RideRequestDTO {
     Integer rideId;
     Integer passengerId;
     String carType;
-    Double driverId;
     Double startLongitude;
     Double startLatitude;
     Double endLongitude;
     Double endLatitude;
-    EnumStatus bookingStatus;
     Date startTime;
     Date endTime;
     Double rating;
@@ -28,6 +26,4 @@ public class RideRequestDTO {
     String destinationAddress;
     String originAddress;//TODO comes from device's location
     String landmarkNearby;
-
-
 }

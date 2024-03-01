@@ -12,5 +12,6 @@ public class StrataApplication {
     }
 
     //TODO MOVE ALL THE ENUMS TO STATIC DATA
+    //TODO USE MAPPING FOR EVERYTHING
 
 }
