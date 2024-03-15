@@ -1,6 +1,7 @@
 package com.arqtechnologies.strata.RestControllers;
 
 import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
+import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerResponseDTO;
@@ -13,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Driver;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/passenger")
@@ -66,17 +65,35 @@ public class PassengerRestController {
 
     @PostMapping("riderequest")
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<Integer> createRide(@RequestBody RideRequestDTO rideRequestDTO) throws InterruptedException {
+    public RestResponsePojo<RideResponseDTO> createRide(@RequestBody RideRequestDTO rideRequestDTO) throws InterruptedException {
 
-        RestResponsePojo<Integer> restResponsePojo = new RestResponsePojo<>();
-        restResponsePojo.setData(rideService.createRide(rideRequestDTO));
+        RestResponsePojo<RideResponseDTO> restResponsePojo = new RestResponsePojo<>();
+        restResponsePojo.setData(rideService.createPassengerRide(rideRequestDTO));
         restResponsePojo.setSuccess(true);
         restResponsePojo.setMessage("Ride successfully requested");
 //        rideServiceImpl.PrintDrivers("Sad man");
         return restResponsePojo;
     }
 
+
+    @PutMapping("selectroute")
+    @ResponseStatus(HttpStatus.OK)
+    public RestResponsePojo<List<DriverResponseDTO>> selectRoute(@RequestBody RideRequestDTO rideRequestDTO, @RequestParam Integer passengerId){
+        //TODO Get from signed in user instead of passing from request param
+
+
+        RestResponsePojo<List<DriverResponseDTO>>restResponsePojo = new RestResponsePojo<>();
+        List<DriverResponseDTO> driversFound = passengerService.getDriversInPath(passengerId, rideRequestDTO);
+        restResponsePojo.setData(driversFound);
+        restResponsePojo.setMessage(driversFound.size()+ " Driver(s) found");
+        return restResponsePojo;
+    }
+
     //TODO DRIVERS INDICATE PATH THEY"RE TRAVELLING
+    //TODO Filter available drivers based on the user's location
+    //TODO LET IT NOT JUST CONTAIN EVERYONE HEADING THERE, OTHERWISE EVEN PEOPLE NOT IN PATH WILL BE IDENTIFIED,
+    // SO ALSO FILTER BY PATH AND DESTINATION
+    //TODO In driver-matching, match them based on active rides
 //    @GetMapping("driversinpath")
 //    @ResponseStatus(HttpStatus.OK)
 //    public RestResponsePojo<DriverResponseDTO> getDriversHeadingInDirection(@RequestBody ){

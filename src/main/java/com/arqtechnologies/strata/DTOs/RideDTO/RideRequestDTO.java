@@ -26,4 +26,5 @@ public class RideRequestDTO {
     String destinationAddress;
     String originAddress;//TODO comes from device's location
     String landmarkNearby;
+    String route;
 }

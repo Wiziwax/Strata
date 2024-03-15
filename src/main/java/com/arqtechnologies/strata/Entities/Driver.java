@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 
 @Getter
@@ -12,6 +13,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Where(clause = "available=true")
 public class Driver extends User{
 
     @OneToOne
@@ -29,7 +31,7 @@ public class Driver extends User{
     private String carPlateNumber;
     @Column
     private Integer carCapacity;
-    @Column
+    @Column(name = "available")
     private Boolean isAvailable;
     @Column
     private Integer trips;

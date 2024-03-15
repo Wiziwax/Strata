@@ -18,7 +18,7 @@ public class UserLocationController {
 
     //TODO MAKE USE OF WEBSOCKETS IN ORDER TO MAINTAIN CONSTANT CONNECTION
 
-    //TODO RE-WATCH THE VIDEO ON YOUTUBE BY 'INTERVIEW PEN' CHANNEL ON OW TO DO THIS RIGHT
+    //TODO RE-WATCH THE VIDEO ON YOUTUBE BY 'INTERVIEW PEN' CHANNEL ON HOW TO DO THIS RIGHT
     @PostMapping("update")
     public ResponseEntity<String> updateLocation(@RequestBody LocationRequest locationRequest) {
         userService.updateUserLocation(locationRequest);

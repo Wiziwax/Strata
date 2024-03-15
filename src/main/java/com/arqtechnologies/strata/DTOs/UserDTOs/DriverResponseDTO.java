@@ -10,10 +10,9 @@ import java.util.Date;
 @Builder
 public class DriverResponseDTO {
 
+
     private String firstName;
     private String lastName;
-    private String email;
-    private String password;
     private String phoneNumber;
     private String phoneNumber2;
 
@@ -23,9 +22,11 @@ public class DriverResponseDTO {
     private String carPlateNumber;
     private Integer carCapacity;
     private Boolean isAvailable;
-    private Long trips;
-    private Float averageRating;
+    private Integer trips;
+    private Double averageRating;
 
     private Date createdDate;
     private EnumRole userRole;
+    private String carType;
+
 }

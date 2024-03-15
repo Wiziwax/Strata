@@ -1,9 +1,14 @@
 package com.arqtechnologies.strata.RestControllers;
 
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideRequestDTO;
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideResponseDTO;
+import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
+import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.RestResponsePojo;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Services.DriverService;
+import com.arqtechnologies.strata.Services.RideService;
 import com.arqtechnologies.strata.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +25,8 @@ public class DriverRestController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RideService rideService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -31,6 +38,21 @@ public class DriverRestController {
         restResponsePojo.setSuccess(true);
         return restResponsePojo;
     }
+
+
+    @PostMapping("initiateride")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestResponsePojo<DriverRideResponseDTO> createDriverRide(@RequestBody DriverRideRequestDTO driverRideRequestDTO) throws InterruptedException {
+
+        RestResponsePojo<DriverRideResponseDTO> restResponsePojo = new RestResponsePojo<>();
+        restResponsePojo.setData(rideService.createDriverRide(driverRideRequestDTO));
+        restResponsePojo.setSuccess(true);
+        restResponsePojo.setMessage("Ride successfully initiated");
+//        rideServiceImpl.PrintDrivers("Sad man");
+        return restResponsePojo;
+    }
+
+
 
     //TODO VISIT ALL THESE COMMENTED PARTS AND DO THEM
 //

@@ -1,5 +1,7 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideRequestDTO;
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
@@ -53,13 +55,13 @@ public class DriverServiceImpl implements DriverService {
         return  DriverResponseDTO.builder()
                 .firstName(existingUser.getFirstName())
                 .lastName(existingUser.getLastName())
-                .email(existingUser.getEmail())
                 .userRole(DRIVER)
                 .phoneNumber(existingUser.getPhoneNumber())
                 .phoneNumber2(existingUser.getPhoneNumber2())
                 .createdDate(existingUser.getCreatedDate())
                 .build();
     }
+
 
 //    @Override
 //    public UserResponseDTO updateDriver(DriverRequestDTO driverRequestDTO) {

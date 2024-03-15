@@ -5,6 +5,8 @@ import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerResponseDTO;
 
+import java.util.List;
+
 public interface PassengerService {
 
     String createPassenger(PassengerRequestDTO passengerRequestDTO);
@@ -14,5 +16,5 @@ public interface PassengerService {
     //PassengerResponseDTO passwordReset
     //TODO PASSWORD RESET
 
-    DriverResponseDTO getDriversInPath(Integer passengerId, RideRequestDTO rideRequestDTO);
+    List<DriverResponseDTO> getDriversInPath(Integer passengerId, RideRequestDTO rideRequestDTO);
 }

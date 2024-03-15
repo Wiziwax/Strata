@@ -25,6 +25,8 @@ public class Ride {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer rideId;
     @Column
+    Integer creatorRole;
+    @Column
     Integer passengerId;
     @Column
     String passengerName;
@@ -77,6 +79,8 @@ public class Ride {
     Integer estimatedDistance;
     @Column
     Integer ETA;
+    @Column
+    String travelPath;
 
     @OneToMany
     Set<Driver> driversInPath;

@@ -1,5 +1,7 @@
 package com.arqtechnologies.strata.ServiceImpls;
 
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideRequestDTO;
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideResponseDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
@@ -8,6 +10,7 @@ import com.arqtechnologies.strata.Entities.GeoCodingResponses.DirectionsMatrixRe
 import com.arqtechnologies.strata.Entities.GeoCodingResponses.DistanceMatrixResponse;
 import com.arqtechnologies.strata.Entities.GeoCodingResponses.GeocodingResponse;
 import com.arqtechnologies.strata.Entities.Ride;
+import com.arqtechnologies.strata.Enums.EnumRole;
 import com.arqtechnologies.strata.Repositories.DriverRepository;
 import com.arqtechnologies.strata.Repositories.RideRepository;
 import com.arqtechnologies.strata.Services.RideService;
@@ -41,14 +44,14 @@ public class RideServiceImpl implements RideService {
     @Autowired
     private DriverRepository driverRepository;
 
+//4072, 1791
 
-
-    public Integer createRide(RideRequestDTO rideRequestDTO) throws InterruptedException {
+    public RideResponseDTO createPassengerRide(RideRequestDTO rideRequestDTO) throws InterruptedException {
         Ride newRide = new Ride();
 
         setRideAttributesFromDTO(newRide, rideRequestDTO);
 
-//        try {
+        try {
             GeocodingResponse.Results originGeoCodingResult = googleMapsService.getGeocodingData(rideRequestDTO.getOriginAddress()).getResults().get(0);
             GeocodingResponse.Results destinationGeoCodingResult = googleMapsService.getGeocodingData(rideRequestDTO.getDestinationAddress()).getResults().get(0);
 
@@ -58,11 +61,11 @@ public class RideServiceImpl implements RideService {
 
             setRideDistanceAttributes(newRide, distanceMatrixElement);
 
-//        } catch (Exception e) {
+        } catch (Exception e) {
             // Handle exceptions (e.g., API call failures) appropriately
-//            return "Failed to create ride";
+            e.printStackTrace();
 //            return 5;
-//        }
+        }
 
         //TODO In driver-matching, match them based on active rides
         //TODO Ride Table should be like an activity table where every new ride created deactivates all the rest
@@ -70,21 +73,26 @@ public class RideServiceImpl implements RideService {
 
 
 
-        Integer routesCount = googleMapsService.getDirectionMatrix(rideRequestDTO.getOriginAddress(), rideRequestDTO.getDestinationAddress(), true).getRoutes().size();
+//        Integer routesCount = googleMapsService.getDirectionMatrix(rideRequestDTO.getOriginAddress(), rideRequestDTO.getDestinationAddress(), true).getRoutes().size();
 
         DirectionsMatrixResponse response = googleMapsService.getDirectionMatrix(rideRequestDTO.getOriginAddress(),
                 rideRequestDTO.getDestinationAddress(), true);
 
         List<String> summaries = extractSummaries(response);
+        RideResponseDTO rideResponseDTO = new RideResponseDTO();
+        List<String> routesList = rideResponseDTO.getRoutes();
 
         for (String summary : summaries) {
-
+            routesList.add(summary);
             System.out.println("List of summaries: " + summary);
         }
 
-        rideRepository.save(newRide);
+        rideResponseDTO.setNumberOfRoutes(summaries.size());
+
+
+//        rideRepository.save(newRide);
         System.out.println("Ride created successfully");
-        return routesCount;
+        return rideResponseDTO;
     }
 
 
@@ -115,6 +123,24 @@ public class RideServiceImpl implements RideService {
 //
 
 
+    @Override
+    public DriverRideResponseDTO createDriverRide(DriverRideRequestDTO driverRideRequestDTO){
+
+        Ride newRide = new Ride();
+        newRide.setRideId(driverRideRequestDTO.getRideId());
+//        newRide.setDriverId();//TODO After Authentication
+//        newRide.setCarType(driverRideRequestDTO.getCarType());
+        newRide.setStartLongitude(driverRideRequestDTO.getStartLongitude());
+        newRide.setStartLatitude(driverRideRequestDTO.getStartLatitude());
+        newRide.setStartTime(new Date());
+        newRide.setDestinationAddress(driverRideRequestDTO.getDestinationAddress());
+        newRide.setOriginAddress(driverRideRequestDTO.getOriginAddress());
+        newRide.setCreatorRole(EnumRole.DRIVER.getNumericValue());
+        newRide.setTravelPath(driverRideRequestDTO.getRoute());
+
+        rideRepository.save(newRide);
+        return null;
+    }
 
     public CompletableFuture<List<Driver>> PrintDrivers(String matchingResultString) throws InterruptedException {
         Thread.sleep(20000L);
@@ -122,7 +148,7 @@ public class RideServiceImpl implements RideService {
     }
 
     private void setRideAttributesFromDTO(Ride newRide, RideRequestDTO rideRequestDTO) {
-//        newRide.setPassengerId();//TODO SIGNED IN USER
+//        newRide.setPassengerId();//TODO Authentication
         newRide.setCarType(rideRequestDTO.getCarType());
         newRide.setStartLongitude(rideRequestDTO.getStartLongitude());
         newRide.setStartLatitude(rideRequestDTO.getStartLatitude());

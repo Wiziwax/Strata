@@ -1,5 +1,8 @@
 package com.arqtechnologies.strata.Services;
 
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideRequestDTO;
+import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideResponseDTO;
+import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 

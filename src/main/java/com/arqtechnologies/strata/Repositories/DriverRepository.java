@@ -13,5 +13,5 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
 
     //TODO CHANGE TO PAGEABLE
     List<Driver> getAllByIsAvailable(Boolean isAvailable);
-//    List<Driver> getAllByDes();
+//    List<Driver> findAllByUser(Iterable<Integer> ids, Boolean isAvailable);
 }

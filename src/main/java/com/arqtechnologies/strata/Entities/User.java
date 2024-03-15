@@ -3,6 +3,7 @@ package com.arqtechnologies.strata.Entities;
 import com.arqtechnologies.strata.Enums.EnumRole;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Where(clause = "available=true")
 public class User {
 
     @Id
