@@ -54,7 +54,7 @@ public class PassengerRestController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public RestResponsePojo<PassengerResponseDTO> updatePassenger(@RequestBody PassengerRequestDTO passengerRequestDTO){
+    public RestResponsePojo<PassengerResponseDTO> updatePassenger(@RequestBody PassengerRequestDTO  passengerRequestDTO){
 
         RestResponsePojo<PassengerResponseDTO> restResponsePojo = new RestResponsePojo<>();
         restResponsePojo.setData(passengerService.updatePassenger(passengerRequestDTO));

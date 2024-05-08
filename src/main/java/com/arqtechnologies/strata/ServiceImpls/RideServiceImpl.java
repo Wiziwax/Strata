@@ -44,8 +44,6 @@ public class RideServiceImpl implements RideService {
     @Autowired
     private DriverRepository driverRepository;
 
-//4072, 1791
-
     public RideResponseDTO createPassengerRide(RideRequestDTO rideRequestDTO) throws InterruptedException {
         Ride newRide = new Ride();
 
