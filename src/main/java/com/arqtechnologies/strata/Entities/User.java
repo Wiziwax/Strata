@@ -12,6 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@Table(name = "user_main")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
