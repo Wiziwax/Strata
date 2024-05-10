@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,6 +68,7 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userRequestDTO.getPhoneNumber().trim());
         user.setPhoneNumber2(userRequestDTO.getPhoneNumber2().trim());
         user.setCreatedDate(new Date());
+//        user.setUserRole(userRequestDTO.getUserRole());
         user.setUserRole(userRequestDTO.getUserRole());
     }
 
@@ -77,8 +79,15 @@ public class UserServiceImpl implements UserService {
 
         EnumRole enumRole = EnumRole.fromNumericValue(roleId);
         Page<User> userPage = userRepository.getUserByUserRole(enumRole, pageable);
+//        Page<User> userPage = userRepository.getUserByLastName("Apples", pageable);
+//        return userPage;
 
         return userPage.map(user -> UserResponseDTO.builder().createdDate(user.getCreatedDate()).firstName(user.getFirstName()).lastName(user.getLastName()).email(user.getEmail()).phoneNumber(user.getPhoneNumber()).phoneNumber2(user.getPhoneNumber2()).userRole(user.getUserRole()).build());
+    }
+
+    @Override
+    public List<User> getEveryUser() {
+        return userRepository.findAll();
     }
 
     @Override
@@ -92,7 +101,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO getById(Integer userId) {
         User existingUser = userRepository.findById(userId).orElseThrow(RuntimeException::new);
 
-        return UserResponseDTO.builder().firstName(existingUser.getFirstName()).lastName(existingUser.getLastName()).email(existingUser.getEmail()).userRole(existingUser.getUserRole()).phoneNumber(existingUser.getPhoneNumber()).phoneNumber2(existingUser.getPhoneNumber2()).createdDate(existingUser.getCreatedDate()).build();
+        return UserResponseDTO.builder().firstName(existingUser.getFirstName()).lastName(existingUser.getLastName()).email(existingUser.getEmail()).userRole((existingUser.getUserRole())).phoneNumber(existingUser.getPhoneNumber()).phoneNumber2(existingUser.getPhoneNumber2()).createdDate(existingUser.getCreatedDate()).build();
     }
 
     @Override

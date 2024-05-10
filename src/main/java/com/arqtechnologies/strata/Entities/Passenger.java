@@ -1,6 +1,7 @@
 package com.arqtechnologies.strata.Entities;
 
 import com.arqtechnologies.strata.Enums.EnumPaymentMethod;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -16,6 +17,7 @@ import lombok.*;
 public class Passenger extends User{
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id") // This is the foreign key column name
     private User passengerId;
     @Column

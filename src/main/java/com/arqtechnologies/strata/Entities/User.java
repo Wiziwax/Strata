@@ -12,11 +12,11 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_main")
+//@Table(name = "user_main")
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Where(clause = "available=true")
+//@Where(clause = "available=true")
 public class User {
 
     @Id
@@ -35,7 +35,7 @@ public class User {
     @Column
     private String phoneNumber2;
     @Column
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private EnumRole userRole;
     @Column
     @CreatedBy

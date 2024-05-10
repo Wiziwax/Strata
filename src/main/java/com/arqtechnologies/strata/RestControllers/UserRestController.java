@@ -3,6 +3,7 @@ package com.arqtechnologies.strata.RestControllers;
 import com.arqtechnologies.strata.DTOs.UserDTOs.RestResponsePojo;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
+import com.arqtechnologies.strata.Entities.User;
 import com.arqtechnologies.strata.Services.DriverService;
 import com.arqtechnologies.strata.Services.PassengerService;
 import com.arqtechnologies.strata.Services.UserService;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -52,4 +55,8 @@ public class UserRestController {
 
     //Get ride by driver and user
 
+    @GetMapping("every")
+    public List<User> getEveryOne(){
+        return userService.getEveryUser();
+    }
 }

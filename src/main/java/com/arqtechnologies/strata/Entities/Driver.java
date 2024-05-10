@@ -1,5 +1,6 @@
 package com.arqtechnologies.strata.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -13,11 +14,12 @@ import org.hibernate.annotations.Where;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "available=true")
+//@Where(clause = "available=true")
 public class Driver extends User{
 
     @OneToOne
     @JoinColumn(name = "user_id") // This is the foreign key column name
+    @JsonIgnore
     private User driverId;
     @Column
     private String licenseNumber;
