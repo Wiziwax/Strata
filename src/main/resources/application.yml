@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+
+  # Other configurations...
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+      javax:
+        persistence:
+          jdbc:
+            url: jdbc:mysql://localhost:3306/strata
+  sql:
+    init:
+      mode: never
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.SQLServerDialect
+
+server:
+  port: 8080
+#
+#google:
+#  maps:
+#    api:
+#      key: AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt_M
+
+
+#      AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt_Mff
+#  jdbc:mysql://localhost:3306/strata
+
+
+
+#  database=stratadb;user=strata@strata-server;password={your_password_here};
+#spring:
+#  datasource:
+#    password: Tamuno@nengi123
+#    url: jdbc:sqlserver://strata-server.database.windows.net:1433;database=stratadb;user=strata@strata-server;password=Tamuno@nengi123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+#    username: strata
+#    name: stratadb
+
+#
+#spring:
+#  datasource:
+#    password: cassillas1nengi
+#    url: jdbc:mysql://db:3306/stratadb?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+#    username: root

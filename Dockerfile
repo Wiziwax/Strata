@@ -1,5 +1,9 @@
 FROM openjdk:17
-ADD target/strata-api.jar strata-api.jar
-#ARG JAR_FILE=target/*.jar
-#COPY ./target/Strata-0.0.1-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java","-jar","/strata-api.jar"]
+#RUN mkdir /app
+#RUN mkdir /app/lib
+WORKDIR /opt
+COPY target/*.jar /opt/app.jar
+#COPY src/main/resources/application.yml /app/application.yml
+#COPY path/to/mysql-connector-java.jar /app/lib/mysql-connector-java.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
+#ENTRYPOINT ["java", "-jar", "/app/strata-api.jar"]

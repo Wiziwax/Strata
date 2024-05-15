@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
-@Table(name = "ride")
+@Table(name = "ride_request")
 @Getter
 @Setter
 @Entity
@@ -81,7 +81,7 @@ public class Ride {
     Integer ETA;
     @Column
     String travelPath;
-
-    @OneToMany
-    Set<Driver> driversInPath;
+//
+//    @OneToMany
+//    Set<Driver> driversInPath;
 }
