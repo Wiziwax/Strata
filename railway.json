@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "maven",
+    "buildCommand": "mvn clean package"
+  },
+  "deploy": {
+    "startCommand": "java -jar target/your-app.jar"
+  }
+}
