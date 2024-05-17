@@ -1,11 +1,9 @@
 spring:
   datasource:
-    password: cassillas1nengi
     url: jdbc:mysql://localhost:3306/strata
     username: root
-
-  # Other configurations...
-
+    password: cassillas1nengi
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,10 +11,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-      javax:
-        persistence:
-          jdbc:
-            url: jdbc:mysql://localhost:3306/strata
+#      javax:
+#        persistence:
+#          jdbc:
+#            url: jdbc:mysql://localhost:3306/strata
   sql:
     init:
       mode: never
@@ -27,10 +25,10 @@ spring:
 server:
   port: 8080
 #
-#google:
-#  maps:
-#    api:
-#      key: AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt
+google:
+  maps:
+    api:
+      key: AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt
 
 
 #      AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt_Mff
