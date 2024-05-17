@@ -1,8 +1,8 @@
 spring:
   datasource:
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
+    password: cassillas1nengi
+    url: jdbc:mysql://localhost:3306/strata
+    username: root
 
   # Other configurations...
 
@@ -52,3 +52,10 @@ server:
 #    password: cassillas1nengi
 #    url: jdbc:mysql://db:3306/stratadb?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
 #    username: root
+
+#
+#spring:
+#  datasource:
+#    password: ${SPRING_DATASOURCE_PASSWORD}
+#    url: ${SPRING_DATASOURCE_URL}
+#    username: ${SPRING_DATASOURCE_USERNAME}
