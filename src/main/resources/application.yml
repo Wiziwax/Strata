@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: mysql://root:gpmoMAEzxYcJMDBOenIrelSTZWBioZlU@viaduct.proxy.rlwy.net:37211/railway
-    username: ${MYSQLUSER}
-    password: ${MYSQLPASSWORD}
+    url: jdbc:mysql://viaduct.proxy.rlwy.net:37211/railway?useSSL=false&serverTimezone=UTC
+    username: root
+    password: gpmoMAEzxYcJMDBOenIrelSTZWBioZlU
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
