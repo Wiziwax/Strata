@@ -1,5 +1,6 @@
 package com.arqtechnologies.strata.RestControllers;
 
+import com.arqtechnologies.strata.DTOs.RideDTO.CreateRideResponseDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
@@ -43,17 +44,17 @@ public class PassengerRestController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
-    public RestResponsePojo<DriverResponseDTO> getDriverById(@RequestParam Integer driverId){
+    @ResponseStatus(HttpStatus.OK)
+    public RestResponsePojo<DriverResponseDTO> getUserById(@RequestParam Integer userId){
 
         RestResponsePojo<DriverResponseDTO> restResponsePojo = new RestResponsePojo<>();
-        restResponsePojo.setData(driverService.getDriverById(driverId));
+        restResponsePojo.setData(driverService.getDriverById(userId));
 
         return restResponsePojo;
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public RestResponsePojo<PassengerResponseDTO> updatePassenger(@RequestBody PassengerRequestDTO  passengerRequestDTO){
 
         RestResponsePojo<PassengerResponseDTO> restResponsePojo = new RestResponsePojo<>();
@@ -63,21 +64,22 @@ public class PassengerRestController {
         return restResponsePojo;
     }
 
-    @PostMapping("riderequest")
+    @PostMapping("destination")
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<RideResponseDTO> createRide(@RequestBody RideRequestDTO rideRequestDTO) throws InterruptedException {
+    public RestResponsePojo<RideResponseDTO> setDestination(@RequestBody RideRequestDTO rideRequestDTO) throws InterruptedException {
 
         RestResponsePojo<RideResponseDTO> restResponsePojo = new RestResponsePojo<>();
-        restResponsePojo.setData(rideService.createPassengerRide(rideRequestDTO));
+        RideResponseDTO rideResponseDTO = rideService.setPassengerDestination(rideRequestDTO);
+        restResponsePojo.setData(rideResponseDTO);
         restResponsePojo.setSuccess(true);
-        restResponsePojo.setMessage("Ride successfully requested");
-//        rideServiceImpl.PrintDrivers("Sad man");
+        restResponsePojo.setMessage("Ride created successfully");
+        //Each route should come with data.
         return restResponsePojo;
     }
 
 
     @PutMapping("selectroute")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public RestResponsePojo<List<DriverResponseDTO>> selectRoute(@RequestBody RideRequestDTO rideRequestDTO, @RequestParam Integer passengerId){
         //TODO Get from signed in user instead of passing from request param
 
@@ -106,5 +108,17 @@ public class PassengerRestController {
 //
 //        return restResponsePojo;
 //    }
+
+
+    @PutMapping("requestride")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestResponsePojo<CreateRideResponseDTO> requestRide(@RequestBody RideRequestDTO rideRequestDTO){
+
+        RestResponsePojo<CreateRideResponseDTO> restResponsePojo = new RestResponsePojo<>();
+        restResponsePojo.setMessage("Ride request sent");
+        restResponsePojo.setData(rideService.requestRide(rideRequestDTO));
+        restResponsePojo.setStatus(201);
+        return restResponsePojo;
+    }
 
 }

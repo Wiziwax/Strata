@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class RideResponseDTO {
 
+    String rideId;
     Integer numberOfRoutes;
     List<String> routes;
 

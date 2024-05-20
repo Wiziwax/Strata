@@ -22,8 +22,8 @@ import java.util.Set;
 public class Ride {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer rideId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String rideId;
     @Column
     Integer creatorRole;
     @Column
@@ -81,6 +81,8 @@ public class Ride {
     Integer ETA;
     @Column
     String travelPath;
+    @Column
+    String route;
 //
 //    @OneToMany
 //    Set<Driver> driversInPath;

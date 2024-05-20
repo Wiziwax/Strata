@@ -96,7 +96,7 @@ public class DriverRestController {
 
     //TODO MOVE TO ADMIN PANEL
     @GetMapping("/getall")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public RestResponsePojo<Page<UserResponseDTO>> getAllDrivers(Pageable pageable){
 
         RestResponsePojo<Page<UserResponseDTO>> restResponsePojo= new RestResponsePojo<>();

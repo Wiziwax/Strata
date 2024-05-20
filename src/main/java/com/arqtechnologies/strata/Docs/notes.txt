@@ -1,0 +1,155 @@
+Authentication and User Management
+
+
+
+User Registration API
+
+Endpoint: /api/auth/register
+Method: POST
+Description: Allows new users (both passengers and drivers) to sign up.
+Request Body: { "username": "string", "password": "string", "role": "passenger|driver" }
+Response: { "message": "User registered successfully", "userId": "string" }
+
+
+
+User Login API
+
+Endpoint: /api/auth/login
+Method: POST
+Description: Authenticates users and returns a JWT token.
+Request Body: { "username": "string", "password": "string" }
+Response: { "token": "JWT token" }
+
+
+
+
+User Profile API
+
+Endpoint: /api/users/{userId}
+Method: GET
+Description: Retrieves the profile information of a user.
+Response: { "userId": "string", "username": "string", "role": "passenger|driver", ... }
+
+
+
+Passenger Functionality
+
+Set Destination API
+
+Endpoint: /api/passenger/destination
+Method: POST
+Description: Allows the passenger to set their destination.
+Request Body: { "userId": "string", "destination": "string", "coordinates": { "lat": "float", "lng": "float" } }
+Response: { "message": "Destination set successfully", "routes": ["route1", "route2", ...] }
+
+
+
+
+Select Route API
+
+Endpoint: /api/passenger/select-route
+Method: POST
+Description: Allows the passenger to select a preferred route.
+Request Body: { "userId": "string", "route": "string" }
+Response: { "message": "Route selected successfully", "drivers": ["driver1", "driver2", ...] }
+
+
+
+Request Ride API
+
+Endpoint: /api/passenger/request-ride
+Method: POST
+Description: Sends a ride request to available drivers on the selected route.
+Request Body: { "userId": "string", "route": "string" }
+Response: { "message": "Ride request sent", "rideId": "string" }
+
+
+
+
+Driver Functionality
+
+Set Route API
+
+Endpoint: /api/driver/set-route
+Method: POST
+Description: Allows the driver to set their available routes.
+Request Body: { "userId": "string", "route": "string" }
+Response: { "message": "Route set successfully" }
+
+
+
+Get Available Rides API
+
+Endpoint: /api/driver/available-rides
+Method: GET
+Description: Retrieves available ride requests for the driver's route.
+Response: { "rides": ["ride1", "ride2", ...] }
+
+
+
+Accept Ride API
+
+Endpoint: /api/driver/accept-ride
+Method: POST
+Description: Allows the driver to accept a ride request.
+Request Body: { "userId": "string", "rideId": "string" }
+Response: { "message": "Ride accepted", "passengerLocation": { "lat": "float", "lng": "float" } }
+
+
+
+
+Ride Management
+
+Ride Status Update API
+
+Endpoint: /api/ride/update-status
+Method: POST
+Description: Updates the status of a ride (e.g., started, completed).
+Request Body: { "rideId": "string", "status": "started|completed|cancelled" }
+Response: { "message": "Ride status updated" }
+
+
+
+Ride Details API
+
+Endpoint: /api/ride/{rideId}
+Method: GET
+Description: Retrieves details of a specific ride.
+Response: { "rideId": "string", "driverId": "string", "passengerId": "string", "status": "string", ... }
+
+
+
+Notifications
+
+Send Notification API
+Endpoint: /api/notifications/send
+Method: POST
+Description: Sends a notification to users.
+Request Body: { "userId": "string", "message": "string" }
+Response: { "message": "Notification sent" }
+
+
+
+
+Additional APIs
+Driver Location Update API
+Endpoint: /api/driver/update-location
+Method: POST
+Description: Updates the driver's current location.
+Request Body: { "userId": "string", "coordinates": { "lat": "float", "lng": "float" } }
+Response: { "message": "Location updated" }
+
+
+
+Database Models
+You will need corresponding database models for users, rides, routes, notifications, and locations. These models will be used to store and manage data within your application.
+
+Conclusion
+These APIs provide a comprehensive structure to manage authentication, passenger and driver interactions, ride requests, and notifications in an E-hailing application. Make sure to implement proper error handling, input validation, and security measures, such as JWT authentication and secure storage of sensitive data.
+
+
+
+
+
+
+

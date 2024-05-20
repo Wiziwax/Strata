@@ -27,6 +27,7 @@ server:
 google:
   maps:
     api:
+#      key: AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt_M
       key: ${GOOGLE_MAPS_API_KEY}
 
 

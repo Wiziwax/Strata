@@ -41,7 +41,7 @@ public class UserRestController {
 
 
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public RestResponsePojo<Page<UserResponseDTO>> getAllByRole(@RequestParam Integer roleId, Pageable pageable){
 
         RestResponsePojo<Page<UserResponseDTO>> restResponsePojo= new RestResponsePojo<>();

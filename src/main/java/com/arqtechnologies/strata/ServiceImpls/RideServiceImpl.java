@@ -2,6 +2,7 @@ package com.arqtechnologies.strata.ServiceImpls;
 
 import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideRequestDTO;
 import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideResponseDTO;
+import com.arqtechnologies.strata.DTOs.RideDTO.CreateRideResponseDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
@@ -44,9 +45,9 @@ public class RideServiceImpl implements RideService {
     @Autowired
     private DriverRepository driverRepository;
 
-    public RideResponseDTO createPassengerRide(RideRequestDTO rideRequestDTO) throws InterruptedException {
+    public RideResponseDTO setPassengerDestination(RideRequestDTO rideRequestDTO) throws InterruptedException {
         Ride newRide = new Ride();
-
+        //TODO PLEASE ENSURE THAT THERE'S NO DUPLICATE ENTRY, YOU COULD CREATE A RIDE BATCH_ID OR SOMETHING OF SORT
         setRideAttributesFromDTO(newRide, rideRequestDTO);
 
         try {
@@ -79,18 +80,30 @@ public class RideServiceImpl implements RideService {
         List<String> summaries = extractSummaries(response);
         RideResponseDTO rideResponseDTO = new RideResponseDTO();
         List<String> routesList = rideResponseDTO.getRoutes();
-
-        for (String summary : summaries) {
-            routesList.add(summary);
-            System.out.println("List of summaries: " + summary);
-        }
+        routesList.addAll(summaries);
 
         rideResponseDTO.setNumberOfRoutes(summaries.size());
 
 
-//        rideRepository.save(newRide);
-        System.out.println("Ride created successfully");
+        rideRepository.save(newRide); //TODO VERIFY IF THIS IS NECESSARY
+        rideResponseDTO.setRideId(newRide.getRideId());
+//        System.out.println("Ride created successfully");
         return rideResponseDTO;
+    }
+
+    @Override
+    public CreateRideResponseDTO requestRide(RideRequestDTO rideRequestDTO) {
+        Ride requestedRide = rideRepository.findById(rideStatusUpdate().getRideId())
+                .orElseThrow(()-> new RuntimeException("Could not find requested ride"));
+
+        requestedRide.setPassengerId(requestedRide.getPassengerId());
+        requestedRide.setRoute(requestedRide.getRoute());
+        rideRepository.save(requestedRide);
+        CreateRideResponseDTO createRideResponseDTO = new CreateRideResponseDTO();
+        createRideResponseDTO.setMessage("Ride request sent");
+        createRideResponseDTO.setRideId(requestedRide.getRideId());
+        return  createRideResponseDTO;
+
     }
 
 
@@ -158,6 +171,7 @@ public class RideServiceImpl implements RideService {
         newRide.setAdditionalNotes(rideRequestDTO.getAdditionalNotes());
         newRide.setOriginAddress(rideRequestDTO.getDestinationAddress());
         newRide.setDestinationAddress(rideRequestDTO.getDestinationAddress());
+        newRide.setCreatorRole(1);//TODO COLLECT BASED ON THE SIGNED IN USER
 
 
 

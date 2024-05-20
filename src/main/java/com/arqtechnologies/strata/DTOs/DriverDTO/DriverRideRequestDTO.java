@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DriverRideRequestDTO {
 
-    Integer rideId;
+    String rideId;
     Double startLongitude;
     Double startLatitude;
     String destinationAddress;
