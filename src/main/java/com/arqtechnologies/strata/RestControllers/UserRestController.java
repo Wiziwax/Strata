@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/user")
 public class UserRestController {
 
     @Autowired
@@ -27,36 +27,15 @@ public class UserRestController {
     private PassengerService passengerService;
 
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<String> createUser(@RequestBody UserRequestDTO userRequestDTO){
-
-        RestResponsePojo<String> restResponsePojo = new RestResponsePojo<>();
-        restResponsePojo.setData(userService.createUser(userRequestDTO));
-        restResponsePojo.setMessage("Successful");
-        restResponsePojo.setSuccess(true);
-        return restResponsePojo;
-    }
-
-
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public RestResponsePojo<Page<UserResponseDTO>> getAllByRole(@RequestParam Integer roleId, Pageable pageable){
-
-        RestResponsePojo<Page<UserResponseDTO>> restResponsePojo= new RestResponsePojo<>();
-        restResponsePojo.setMessage("User(s) Found");
-        restResponsePojo.setData(userService.getAllUser(roleId, pageable));
-//        restResponsePojo.setStatus(HttpStatus);//TODO UNDO THIS AFTER SETTING EXCEPTION HANDLER
+    @GetMapping("getbyid")
+    public RestResponsePojo<UserResponseDTO> getUserById(@RequestParam Integer userId){
+        RestResponsePojo<UserResponseDTO> restResponsePojo = new RestResponsePojo<>();
+        restResponsePojo.setData(userService.getById(userId));
+        restResponsePojo.setMessage("User Found");
         restResponsePojo.setSuccess(true);
 
         return restResponsePojo;
     }
 
-    //Get ride by driver and user
 
-    @GetMapping("every")
-    public List<User> getEveryOne(){
-        return userService.getEveryUser();
-    }
 }

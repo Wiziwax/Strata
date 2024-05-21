@@ -15,7 +15,6 @@ public class DriverResponseDTO {
     private String lastName;
     private String phoneNumber;
     private String phoneNumber2;
-
     private String licenseNumber;
     private String carModel;
     private String carColour;

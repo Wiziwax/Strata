@@ -22,7 +22,7 @@ public class DriverServiceImpl implements DriverService {
     private DriverRepository driverRepository;
 
     @Override
-    public String createDriver(DriverRequestDTO driverRequestDTO) {
+    public DriverResponseDTO createDriver(DriverRequestDTO driverRequestDTO) {
         Driver newDriver = new Driver();
 
         newDriver.setFirstName(driverRequestDTO.getFirstName().trim());
@@ -46,7 +46,7 @@ public class DriverServiceImpl implements DriverService {
         newDriver.setTrips(0);
 
         driverRepository.save(newDriver);
-        return "Successfully Created";
+        return getResponseDTO(newDriver);
     }
     @Override
     public DriverResponseDTO getDriverById(Integer driverId) {
@@ -56,10 +56,19 @@ public class DriverServiceImpl implements DriverService {
         return  DriverResponseDTO.builder()
                 .firstName(existingUser.getFirstName())
                 .lastName(existingUser.getLastName())
-                .userRole(DRIVER)
                 .phoneNumber(existingUser.getPhoneNumber())
                 .phoneNumber2(existingUser.getPhoneNumber2())
+                .licenseNumber(existingUser.getLicenseNumber())
+                .carModel(existingUser.getCarModel())
+                .carColour(existingUser.getCarColour())
+                .carPlateNumber(existingUser.getCarPlateNumber())
+                .carCapacity(existingUser.getCarCapacity())
+                .isAvailable(existingUser.getIsAvailable())
+                .trips(existingUser.getTrips())
+                .averageRating(existingUser.getAverageRating())
                 .createdDate(existingUser.getCreatedDate())
+                .userRole(DRIVER)
+                .carType(existingUser.getCarType())
                 .build();
     }
 
@@ -93,5 +102,25 @@ public class DriverServiceImpl implements DriverService {
     }
 
 
+    public DriverResponseDTO getResponseDTO(Driver driver){
+
+       return DriverResponseDTO.builder()
+                .firstName(driver.getFirstName())
+                .lastName(driver.getLastName())
+                .phoneNumber(driver.getPhoneNumber())
+                .phoneNumber2(driver.getPhoneNumber2())
+                .licenseNumber(driver.getLicenseNumber())
+                .carModel(driver.getCarModel())
+                .carColour(driver.getCarColour())
+                .carPlateNumber(driver.getCarPlateNumber())
+                .carCapacity(driver.getCarCapacity())
+                .isAvailable(driver.getIsAvailable())
+                .trips(driver.getTrips())
+                .averageRating(driver.getAverageRating())
+                .createdDate(driver.getCreatedDate())
+                .userRole(DRIVER)
+                .carType(driver.getCarType())
+                .build();
+    }
 
 }

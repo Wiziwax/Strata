@@ -8,7 +8,7 @@ import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 
 public interface DriverService {
 
-    String createDriver(DriverRequestDTO driverRequestDTO);
+    DriverResponseDTO createDriver(DriverRequestDTO driverRequestDTO);
 
     //TODO LOGIN
     DriverResponseDTO getDriverById(Integer driverId);

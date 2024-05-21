@@ -3,10 +3,7 @@ package com.arqtechnologies.strata.RestControllers;
 import com.arqtechnologies.strata.DTOs.RideDTO.CreateRideResponseDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
-import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
-import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerRequestDTO;
-import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerResponseDTO;
-import com.arqtechnologies.strata.DTOs.UserDTOs.RestResponsePojo;
+import com.arqtechnologies.strata.DTOs.UserDTOs.*;
 import com.arqtechnologies.strata.ServiceImpls.RideServiceImpl;
 import com.arqtechnologies.strata.Services.DriverService;
 import com.arqtechnologies.strata.Services.PassengerService;
@@ -35,10 +32,11 @@ public class PassengerRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<String> createPassenger(@RequestBody PassengerRequestDTO passengerRequestDTO){
+    public RestResponsePojo<UserResponseDTO> createPassenger(@RequestBody PassengerRequestDTO passengerRequestDTO){
 
-        RestResponsePojo<String> restResponsePojo = new RestResponsePojo<>();
+        RestResponsePojo<UserResponseDTO> restResponsePojo = new RestResponsePojo<>();
         restResponsePojo.setData(passengerService.createPassenger(passengerRequestDTO));
+        restResponsePojo.setMessage("Passenger successfully created");
         restResponsePojo.setSuccess(true);
         return restResponsePojo;
     }
@@ -55,10 +53,11 @@ public class PassengerRestController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<PassengerResponseDTO> updatePassenger(@RequestBody PassengerRequestDTO  passengerRequestDTO){
+    public RestResponsePojo<UserResponseDTO> updatePassenger(@RequestBody PassengerRequestDTO passengerRequestDTO){
 
-        RestResponsePojo<PassengerResponseDTO> restResponsePojo = new RestResponsePojo<>();
+        RestResponsePojo<UserResponseDTO> restResponsePojo = new RestResponsePojo<>();
         restResponsePojo.setData(passengerService.updatePassenger(passengerRequestDTO));
+        restResponsePojo.setMessage("Passenger updated successfully");
         restResponsePojo.setSuccess(true);
 
         return restResponsePojo;

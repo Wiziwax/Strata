@@ -5,6 +5,7 @@ import com.arqtechnologies.strata.DTOs.DriverDTO.DriverRideResponseDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideRequestDTO;
 import com.arqtechnologies.strata.DTOs.RideDTO.RideResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverRequestDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.RestResponsePojo;
 import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Entities.User;
@@ -33,9 +34,9 @@ public class DriverRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponsePojo<String> createDriver(@RequestBody DriverRequestDTO driverRequestDTO){
+    public RestResponsePojo<DriverResponseDTO> createDriver(@RequestBody DriverRequestDTO driverRequestDTO){
 
-        RestResponsePojo<String> restResponsePojo = new RestResponsePojo<>();
+        RestResponsePojo<DriverResponseDTO> restResponsePojo = new RestResponsePojo<>();
         restResponsePojo.setData(driverService.createDriver(driverRequestDTO));
         restResponsePojo.setMessage("Successful");
         restResponsePojo.setSuccess(true);
@@ -95,17 +96,7 @@ public class DriverRestController {
 
 
     //TODO MOVE TO ADMIN PANEL
-    @GetMapping("/getall")
-    @ResponseStatus(HttpStatus.OK)
-    public RestResponsePojo<Page<UserResponseDTO>> getAllDrivers(Pageable pageable){
 
-        RestResponsePojo<Page<UserResponseDTO>> restResponsePojo= new RestResponsePojo<>();
-        restResponsePojo.setData(userService.getAllUser(0, pageable));
-//        restResponsePojo.setData(userService.getAllUser(0, pageable));
-
-        return restResponsePojo;
-//        return userService.getAllUser(0, pageable);
-    }
 
     //Search for clusters
     //Search by destination

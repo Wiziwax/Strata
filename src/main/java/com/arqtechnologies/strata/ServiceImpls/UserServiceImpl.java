@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 //        Page<User> userPage = userRepository.getUserByLastName("Apples", pageable);
 //        return userPage;
 
-        return userPage.map(user -> UserResponseDTO.builder().createdDate(user.getCreatedDate()).firstName(user.getFirstName()).lastName(user.getLastName()).email(user.getEmail()).phoneNumber(user.getPhoneNumber()).phoneNumber2(user.getPhoneNumber2()).userRole(user.getUserRole()).build());
+        return userPage.map(user -> UserResponseDTO.builder().createdDate(user.getCreatedDate()).firstName(user.getFirstName()).lastName(user.getLastName()).phoneNumber(user.getPhoneNumber()).phoneNumber2(user.getPhoneNumber2()).userRole(user.getUserRole()).build());
     }
 
     @Override
@@ -101,12 +101,12 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO getById(Integer userId) {
         User existingUser = userRepository.findById(userId).orElseThrow(RuntimeException::new);
 
-        return UserResponseDTO.builder().firstName(existingUser.getFirstName()).lastName(existingUser.getLastName()).email(existingUser.getEmail()).userRole((existingUser.getUserRole())).phoneNumber(existingUser.getPhoneNumber()).phoneNumber2(existingUser.getPhoneNumber2()).createdDate(existingUser.getCreatedDate()).build();
+        return UserResponseDTO.builder().firstName(existingUser.getFirstName()).lastName(existingUser.getLastName()).userRole((existingUser.getUserRole())).phoneNumber(existingUser.getPhoneNumber()).phoneNumber2(existingUser.getPhoneNumber2()).createdDate(existingUser.getCreatedDate()).build();
     }
 
     @Override
-    public void deleteAccount() {
-
+    public void deleteAccount(Integer userId) {
+        userRepository.deleteById(userId);
     }
 
     @Override

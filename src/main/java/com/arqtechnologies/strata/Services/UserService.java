@@ -17,6 +17,6 @@ public interface UserService {
     List<User> getEveryUser();
     UserResponseDTO updateUser(UserRequestDTO userRequestDTO);
     UserResponseDTO getById(Integer userId);
-    void deleteAccount();
+    void deleteAccount(Integer userId);
     void updateUserLocation(LocationRequest locationRequest);
 }

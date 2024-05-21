@@ -5,9 +5,11 @@ import com.arqtechnologies.strata.DTOs.Routes;
 import com.arqtechnologies.strata.DTOs.UserDTOs.DriverResponseDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerRequestDTO;
 import com.arqtechnologies.strata.DTOs.UserDTOs.PassengerResponseDTO;
+import com.arqtechnologies.strata.DTOs.UserDTOs.UserResponseDTO;
 import com.arqtechnologies.strata.Entities.Driver;
 import com.arqtechnologies.strata.Entities.Passenger;
 import com.arqtechnologies.strata.Entities.Ride;
+import com.arqtechnologies.strata.Entities.User;
 import com.arqtechnologies.strata.Repositories.DriverRepository;
 import com.arqtechnologies.strata.Repositories.PassengerRepository;
 import com.arqtechnologies.strata.Repositories.RideRepository;
@@ -34,7 +36,7 @@ public class PassengerServiceImpl implements PassengerService {
     DriverRepository driverRepository;
 
     @Override
-    public String createPassenger(PassengerRequestDTO passengerRequestDTO) {
+    public UserResponseDTO createPassenger(PassengerRequestDTO passengerRequestDTO) {
 
         Passenger newPassenger = new Passenger();
 
@@ -50,11 +52,13 @@ public class PassengerServiceImpl implements PassengerService {
 
         passengerRepository.save(newPassenger);
 
-        return "Successfully Created";
+
+
+        return userDTOTransfer(newPassenger);
     }
 
     @Override
-    public PassengerResponseDTO updatePassenger(PassengerRequestDTO passengerRequestDTO) {
+    public UserResponseDTO updatePassenger(PassengerRequestDTO passengerRequestDTO) {
 
         Passenger passenger = passengerRepository.findById(passengerRequestDTO.getPassengerId())
                 .orElseThrow(()-> new RuntimeException("Couldn't find passenger with ID " +
@@ -67,7 +71,7 @@ public class PassengerServiceImpl implements PassengerService {
 
         passengerRepository.save(passenger);
 
-        return null;
+        return userDTOTransfer(passenger);
     }
 
     @Override
@@ -104,7 +108,16 @@ public class PassengerServiceImpl implements PassengerService {
                 .trips(driver.getTrips()).build()).toList();
     }
 
-//    public Routes getDestinationRoutes(String Destination){
-//
-//    }
+
+    public UserResponseDTO userDTOTransfer(User user){
+
+        return UserResponseDTO.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phoneNumber(user.getPhoneNumber())
+                .phoneNumber2(user.getPhoneNumber2())
+                .userRole(user.getUserRole())
+                .createdDate(user.getCreatedDate())
+                .build();
+    }
 }

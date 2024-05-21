@@ -5,19 +5,23 @@ import com.arqtechnologies.strata.Enums.EnumPaymentMethod;
 import com.arqtechnologies.strata.Enums.EnumRole;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @Builder
+//@NoArgsConstructor
+//@RequiredArgsConstructor
 public class UserResponseDTO {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private String phoneNumber2;
-    private EnumRole userRole;
-    private Date createdDate;
+    public String firstName;
+    public String lastName;
+//    private String email;
+//    private String password;
+    public String phoneNumber;
+    public String phoneNumber2;
+    public EnumRole userRole;
+    public Date createdDate;
 }
