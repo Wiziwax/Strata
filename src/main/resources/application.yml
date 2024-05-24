@@ -18,7 +18,9 @@ spring:
   sql:
     init:
       mode: never
-#    properties:
+
+  jmx:
+    enabled=true:#    properties:
 #      hibernate:
 #        dialect: org.hibernate.dialect.SQLServerDialect
 server:
@@ -27,8 +29,16 @@ server:
 google:
   maps:
     api:
-#      key: AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt_M
-      key: ${GOOGLE_MAPS_API_KEY}
+      key: AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt_M
+#      key: ${GOOGLE_MAPS_API_KEY}
+
+#
+#logging:
+#  level:
+#    root: DEBUG
+#    org.springframework.web: DEBUG
+
+
 
 
 #      AIzaSyBMIyhx5s3ogrKrwRo_6G9SOeuDc3XRt_Mff
