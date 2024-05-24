@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/passenger")
 public class PassengerRestController {
 
+
     @Autowired
     private PassengerService passengerService;
 
